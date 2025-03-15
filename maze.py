@@ -1,4 +1,5 @@
 import time
+import random
 from cell import Cell
 from line import Point, Line
 
@@ -11,7 +12,8 @@ class Maze:
             num_cols,
             cell_size_x,
             cell_size_y,
-            win=None
+            win=None,
+            seed=None
         ):
         self._cells = []
         self._x1 = x1
@@ -23,6 +25,9 @@ class Maze:
         self._win = win
         self._create_cells()
         self._break_entrance_and_exit()
+
+        if seed is not None:
+            random.seed(seed)
 
     def _create_cells(self):
         for col in range(self._num_cols):
