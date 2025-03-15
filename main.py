@@ -5,18 +5,11 @@ def main():
     print("Starting aMAZEment")
     win = Window(800, 600)
 
-    # Point Objects
-    point1 = Point(70, 70)
-    point2 = Point(25, 74)
-    point3 = Point(106, 509)
-    point4 = Point(300, 300)
-    point5 = Point(212, 46)
-
     # Line Objects:
-    line1 = Line(point3, point1)
-    line2 = Line(point5, point1)
-    line3 = Line(point2, point1)
-    line4 = Line(point5, point4)
+    line1 = Line(Point(106, 509), Point(70, 70))
+    line2 = Line(Point(212, 46), Point(70, 70))
+    line3 = Line(Point(25, 74), Point(70, 70))
+    line4 = Line(Point(212, 46), Point(300, 300))
 
     # Drawing the Lines:
     win.draw_line(line1, "orange")
