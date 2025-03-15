@@ -55,6 +55,16 @@ class TestMaze(unittest.TestCase):
             maze._cell_size_y,
             cell_size
         )
+
+    def test_reset_cells_visited(self):
+        num_cols = 10
+        num_rows = 14
+        cell_size = 40
+        maze = Maze(50, 50, num_rows, num_cols, cell_size, cell_size, seed=3)
+        
+        for col in maze._cells:
+            for cell in col:
+                self.assertTrue(cell._visited == False)
     
     def test_break_entrance_and_exit(self):
         num_cols = 15
