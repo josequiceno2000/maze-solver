@@ -1,4 +1,5 @@
-from window import Window, Cell
+from cell import Cell
+from window import Window
 from line import Point, Line
 
 def main():
