@@ -5,17 +5,31 @@ def main():
     print("Starting aMAZEment")
     win = Window(800, 600)
 
-    # Line Objects:
-    line1 = Line(Point(106, 509), Point(70, 70))
-    line2 = Line(Point(212, 46), Point(70, 70))
-    line3 = Line(Point(25, 74), Point(70, 70))
-    line4 = Line(Point(212, 46), Point(300, 300))
+    # Determine Cell Size:
+    cell_size = 70
 
-    # Drawing the Lines:
-    win.draw_line(line1, "orange")
-    win.draw_line(line2, "purple")
-    win.draw_line(line3, "red")
-    win.draw_line(line4, "black")
+    # Creating Cell Objects:
+    cell1 = Cell(60, 60, 60 + cell_size, 60 + cell_size, win)
+    cell1.draw()
+
+    cell2 = Cell(300, 300, 300 + cell_size, 300 + cell_size, win)
+    cell2.draw()
+
+    # Cell Objects with Missing Walls:
+    cell3 = Cell(250, 400, 250 + cell_size, 400 + cell_size, win)
+    cell3.has_bottom_wall = False
+    cell3.has_right_wall = False
+    cell3.draw()
+
+    cell4 = Cell(600, 150, 600 + cell_size, 150 + cell_size, win)
+    cell4.has_left_wall = False
+    cell4.has_right_wall = False
+    cell4.draw()
+
+    cell5 = Cell(500, 400, 500 + cell_size, 400 + cell_size, win)
+    cell5.has_top_wall = False
+    cell5.draw()
+
 
     win.wait_for_close()
 
