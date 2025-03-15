@@ -41,6 +41,8 @@ class Maze:
                 self._draw_cell(row, col)
     
     def _draw_cell(self, row, col):
+        if self._win is None:
+            return
         cell = self._cells[col][row]
         cell.draw()
         self._animate()
