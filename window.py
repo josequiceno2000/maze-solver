@@ -3,23 +3,22 @@ from tkinter import Tk, BOTH, Canvas
 class Window:
 
     def __init__(self, width, height):
-        self.width = width
-        self.height = height
-        self.root = Tk()
-        self.root.title("aMAZEment")
-        self.root.protocol("WM_DELETE_WINDOW", self.close)
-        self.canvas = Canvas(self.root, width=self.width, height=self.height)
-        self.canvas.pack()
-        self.window_running = False
+        self.__root = Tk()
+        self.__root.title("aMAZEment")
+        self.__root.protocol("WM_DELETE_WINDOW", self.close)
+        self.__canvas = Canvas(self.__root, width=width, height=height)
+        self.__canvas.pack(fill=BOTH, expand=True)
+        self.__window_running = False
     
     def redraw(self):
-        self.root.update_idletasks()
-        self.root.update()
+        self.__root.update_idletasks()
+        self.__root.update()
 
     def wait_for_close(self):
-        self.window_running = True
-        while self.window_running:
+        self.__window_running = True
+        while self.__window_running:
             self.redraw()
+        print("The maze is collapsing...")
 
     def close(self):
-        self.window_running = False
+        self.__window_running = False
