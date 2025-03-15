@@ -19,7 +19,7 @@ def main():
     sys.setrecursionlimit(10000)
     win = Window(screen_x, screen_y)
 
-    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, 3)
+    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, 4)
     print("The maze has been constructed")
     
     solved = maze.solve()
@@ -27,8 +27,6 @@ def main():
         print("We have escaped the maze.")
     else:
         print("Lost in the maze...")
-    
-
 
     win.wait_for_close()
 

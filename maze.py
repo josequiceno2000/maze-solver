@@ -168,65 +168,58 @@ class Maze:
         
         # Check each direction
         next_cell = None
-        next_col = col
-        next_row = row
 
         # Left gang
         if (
             (col >= 1) and
-            (not self._cells[col - 1][row].has_right_wall) and
+            (not current_cell.has_left_wall) and
             (not self._cells[col - 1][row]._visited)
         ):
             next_cell = self._cells[col - 1][row]
-            next_col = col - 1
             current_cell.draw_move(next_cell)
-            if self._solve_r(next_col, next_row):
+            if self._solve_r(col - 1, row):
                 return True
             else:
                 current_cell.draw_move(next_cell, undo=True)
         
         # Right gang
-        elif (
+        if (
             (col < self._num_cols - 1) and
-            (not self._cells[col + 1][row].has_left_wall) and
+            (not current_cell.has_right_wall) and
             (not self._cells[col + 1][row]._visited)
         ):
             next_cell = self._cells[col + 1][row]
-            next_col = col + 1
             current_cell.draw_move(next_cell)
-            if self._solve_r(next_col, next_row):
+            if self._solve_r(col + 1, row):
                 return True
             else:
                 current_cell.draw_move(next_cell, undo=True)
 
         # Top gang
-        elif (
+        if (
             (row >= 1) and
-            (not self._cells[col][row - 1].has_bottom_wall) and
+            (not current_cell.has_top_wall) and
             (not self._cells[col][row - 1]._visited)
         ):
             next_cell = self._cells[col][row - 1]
-            next_row = row - 1
             current_cell.draw_move(next_cell)
-            if self._solve_r(next_col, next_row):
+            if self._solve_r(col, row - 1):
                 return True
             else:
                 current_cell.draw_move(next_cell, undo=True)
         
         # Bottom gang
-        elif (
+        if (
             (row < self._num_rows - 1) and
-            (not self._cells[col][row + 1].has_top_wall) and
+            (not current_cell.has_bottom_wall) and
             (not self._cells[col][row + 1]._visited)
         ):
             next_cell = self._cells[col][row + 1]
-            next_row = row + 1
             current_cell.draw_move(next_cell)
-            if self._solve_r(next_col, next_row):
+            if self._solve_r(col, row + 1):
                 return True
             else:
                 current_cell.draw_move(next_cell, undo=True)
         
         # If no directions worked out, return False:
-        if next_cell == None:
-            return False
+        return False
