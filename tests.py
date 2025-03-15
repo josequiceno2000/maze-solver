@@ -64,7 +64,7 @@ class TestMaze(unittest.TestCase):
         
         for col in maze._cells:
             for cell in col:
-                self.assertTrue(cell._visited == False)
+                self.assertFalse(cell._visited)
     
     def test_break_entrance_and_exit(self):
         num_cols = 15
