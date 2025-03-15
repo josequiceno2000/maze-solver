@@ -21,6 +21,19 @@ class Tests(unittest.TestCase):
             num_rows
         )
     
+    def test_maze_create_cells_larger(self):
+        num_cols = 20
+        num_rows = 18
+        maze2 = Maze(50, 50, num_rows, num_cols, 10, 10)
+        self.assertEqual(
+            len(maze2._cells),
+            num_cols,
+        )
+        self.assertEqual(
+            len(maze2._cells[1]),
+            num_rows,
+        )
+    
     def test_maze_dimmensions(self):
         num_cols = 15
         num_rows = 5
