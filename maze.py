@@ -69,3 +69,72 @@ class Maze:
 
         exit_cell.has_bottom_wall = False
         self._draw_cell(self._num_rows - 1, self._num_cols - 1)
+
+    def _break_walls_r(self, col, row):
+        # Mark current cell as visited
+        current_cell =  self._cells[col][row]
+        current_cell._visited = True
+
+        # Infinite loop
+        while True:
+            to_visit = []
+            # Check all possible directions for cells:
+            possible_directions = []
+            # Left Gang
+            if col >= 1:
+                left_cell = self._cells[col - 1][row]
+                if left_cell._visited == False:
+                    possible_directions.append(left_cell)
+                    
+            # Right Gang
+            if col < self._num_cols:
+                right_cell = self._cells[col + 1][row]
+                if right_cell._visited == False:
+                    possible_directions.append(right_cell)
+
+            # Top Gang
+            if row >= 1:
+                top_cell = self._cells[col][row - 1]
+                if top_cell._visited == False:
+                    possible_directions.append(top_cell)
+
+            # Bottom Gang:
+            if row < self._num_rows:
+                bottom_cell = self._cells[col][row + 1]
+                if bottom_cell._visited == False:
+                    possible_directions.append(bottom_cell)
+
+            # Check if there is nowhere left to go:
+            if (
+                (not left_cell._visited or not col >= 1) and
+                (not right_cell._visited or not col < self._num_cols) and
+                (not top_cell._visited or not row >= 1) and
+                (not bottom_cell._visited or not row < self._num_rows)
+            ):
+                current_cell.draw()
+                return 
+            
+            # Or pick a random direction
+            else:
+                next_cell = random.choice(possible_directions)
+                # Break down the walls between current and next cells
+                if next_cell == left_cell:
+                    col -= 1
+                    current_cell.has_left_wall = False
+                    next_cell.has_right_wall = False
+                elif next_cell == top_cell:
+                    row -= 1
+                    current_cell.has_top_wall = False
+                    next_cell.has_bottom_wall = False
+                elif next_cell == right_cell:
+                    col += 1
+                    current_cell.has_right_wall = False
+                    next_cell.has_left_wall = False
+                elif next_cell == bottom_cell:
+                    col += 1
+                    current_cell.has_bottom_wall = False
+                    next_cell.has_top_wall = False
+            
+            # Move to next cell with recursion
+            self._break_walls_r(col, row)
+                
