@@ -77,40 +77,34 @@ class Maze:
 
         # Infinite loop
         while True:
-            to_visit = []
-            # Check all possible directions for cells:
             possible_directions = []
+            # Check all possible directions for cells:
             # Left Gang
             if col >= 1:
                 left_cell = self._cells[col - 1][row]
-                if left_cell._visited == False:
+                if not left_cell._visited:
                     possible_directions.append(left_cell)
                     
             # Right Gang
-            if col < self._num_cols:
+            if col < self._num_cols - 1:
                 right_cell = self._cells[col + 1][row]
-                if right_cell._visited == False:
+                if not right_cell._visited:
                     possible_directions.append(right_cell)
 
             # Top Gang
             if row >= 1:
                 top_cell = self._cells[col][row - 1]
-                if top_cell._visited == False:
+                if not top_cell._visited:
                     possible_directions.append(top_cell)
 
             # Bottom Gang:
-            if row < self._num_rows:
+            if row < self._num_rows - 1:
                 bottom_cell = self._cells[col][row + 1]
-                if bottom_cell._visited == False:
+                if not bottom_cell._visited:
                     possible_directions.append(bottom_cell)
 
             # Check if there is nowhere left to go:
-            if (
-                (not left_cell._visited or not col >= 1) and
-                (not right_cell._visited or not col < self._num_cols) and
-                (not top_cell._visited or not row >= 1) and
-                (not bottom_cell._visited or not row < self._num_rows)
-            ):
+            if len(possible_directions) < 1:
                 current_cell.draw()
                 return 
             
@@ -119,22 +113,26 @@ class Maze:
                 next_cell = random.choice(possible_directions)
                 # Break down the walls between current and next cells
                 if next_cell == left_cell:
-                    col -= 1
                     current_cell.has_left_wall = False
                     next_cell.has_right_wall = False
+                    next_col = col - 1
                 elif next_cell == top_cell:
-                    row -= 1
                     current_cell.has_top_wall = False
                     next_cell.has_bottom_wall = False
+                    next_row = row - 1
                 elif next_cell == right_cell:
-                    col += 1
                     current_cell.has_right_wall = False
                     next_cell.has_left_wall = False
+                    next_col = col + 1
                 elif next_cell == bottom_cell:
-                    col += 1
+                    next_row = row + 1
                     current_cell.has_bottom_wall = False
                     next_cell.has_top_wall = False
             
+            # Redraw the cells involved
+            self._draw_cell(col=col, row=row)
+            self._draw_cell(col=next_col, row=next_row)
+            
             # Move to next cell with recursion
-            self._break_walls_r(col, row)
+            self._break_walls_r(next_col, next_row)
                 
