@@ -23,11 +23,13 @@ class Maze:
         self._cell_size_x = cell_size_x
         self._cell_size_y = cell_size_y
         self._win = win
+        if seed:
+            random.seed(seed)
+
+
         self._create_cells()
         self._break_entrance_and_exit()
-
-        if seed is not None:
-            random.seed(seed)
+        self._break_walls_r(0, 0)
 
     def _create_cells(self):
         for col in range(self._num_cols):
@@ -78,6 +80,10 @@ class Maze:
         # Infinite loop
         while True:
             possible_directions = []
+            left_cell = None
+            right_cell = None
+            top_cell = None
+            bottom_cell = None
             # Check all possible directions for cells:
             # Left Gang
             if col >= 1:
@@ -105,26 +111,28 @@ class Maze:
 
             # Check if there is nowhere left to go:
             if len(possible_directions) < 1:
-                current_cell.draw()
+                self._draw_cell(row, col)
                 return 
             
             # Or pick a random direction
             else:
                 next_cell = random.choice(possible_directions)
+                next_row = row
+                next_col = col
                 # Break down the walls between current and next cells
-                if next_cell == left_cell:
+                if left_cell is not None and next_cell == left_cell:
                     current_cell.has_left_wall = False
                     next_cell.has_right_wall = False
                     next_col = col - 1
-                elif next_cell == top_cell:
+                elif top_cell is not None and next_cell == top_cell:
                     current_cell.has_top_wall = False
                     next_cell.has_bottom_wall = False
                     next_row = row - 1
-                elif next_cell == right_cell:
+                elif right_cell is not None and next_cell == right_cell:
                     current_cell.has_right_wall = False
                     next_cell.has_left_wall = False
                     next_col = col + 1
-                elif next_cell == bottom_cell:
+                elif bottom_cell is not None and next_cell == bottom_cell:
                     next_row = row + 1
                     current_cell.has_bottom_wall = False
                     next_cell.has_top_wall = False
