@@ -1,35 +1,22 @@
 from cell import Cell
+from maze import Maze
 from window import Window
 from line import Point, Line
 
 def main():
     print("Starting aMAZEment")
-    win = Window(800, 600)
 
-    # Determine Cell Size:
-    cell_size = 70
+    # Testing the Maze
+    num_rows = 14
+    num_cols = 6
+    margin = 40
+    screen_x = 800
+    screen_y = 600
+    cell_size_x = (screen_x - 2 * margin) / num_cols
+    cell_size_y = (screen_y - 2 * margin) / num_rows
+    win = Window(screen_x, screen_y)
 
-    # Creating Cell Objects:
-    cell1 = Cell(60, 60, 60 + cell_size, 60 + cell_size, win)
-    cell1.draw()
-
-    cell2 = Cell(300, 300, 300 + cell_size, 300 + cell_size, win)
-    cell2.draw()
-
-    # Cell Objects with Missing Walls:
-    cell3 = Cell(250, 400, 250 + cell_size, 400 + cell_size, win)
-    cell3.has_bottom_wall = False
-    cell3.has_right_wall = False
-    cell3.draw()
-
-    cell4 = Cell(600, 150, 600 + cell_size, 150 + cell_size, win)
-    cell4.has_left_wall = False
-    cell4.has_right_wall = False
-    cell4.draw()
-
-    cell5 = Cell(500, 400, 500 + cell_size, 400 + cell_size, win)
-    cell5.has_top_wall = False
-    cell5.draw()
+    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
 
 
     win.wait_for_close()
