@@ -152,11 +152,8 @@ class Maze:
 
     # Solving the Maze
     def solve(self):
-        if self._solve_r(col=0, row=0):
-            return True
-        return False
+        return self._solve_r(col=0, row=0)
         
-    
     def _solve_r(self, col, row):
         # Call the animate method
         self._animate()
