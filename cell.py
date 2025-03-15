@@ -22,12 +22,20 @@ class Cell:
     def draw(self):
         if self.has_left_wall:
             self._win.draw_line(Line(Point(self._x1, self._y1), Point(self._x1, self._y2)))
+        else:
+            self._win.draw_line(Line(Point(self._x1, self._y1), Point(self._x1, self._y2)), "#d9d9d9")
         if self.has_top_wall:
             self._win.draw_line(Line(Point(self._x1, self._y1), Point(self._x2, self._y1)))
+        else:
+            self._win.draw_line(Line(Point(self._x1, self._y1), Point(self._x2, self._y1)), "#d9d9d9")
         if self.has_right_wall:
             self._win.draw_line(Line(Point(self._x2, self._y1), Point(self._x2, self._y2)))
+        else:
+            self._win.draw_line(Line(Point(self._x2, self._y1), Point(self._x2, self._y2)), "#d9d9d9")
         if self.has_bottom_wall:
             self._win.draw_line(Line(Point(self._x1, self._y2), Point(self._x2, self._y2)))
+        else:
+            self._win.draw_line(Line(Point(self._x1, self._y2), Point(self._x2, self._y2)), "#d9d9d9")
     
     def draw_move(self, to_cell, undo=False):
         # Set color
