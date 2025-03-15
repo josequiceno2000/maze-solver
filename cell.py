@@ -40,7 +40,7 @@ class Cell:
     
     def draw_move(self, to_cell, undo=False):
         # Set color
-        fill_color = "red"
+        fill_color = "blue"
         if undo:
             fill_color = "gray"
 
