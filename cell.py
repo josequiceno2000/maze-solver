@@ -1,7 +1,14 @@
 from line import Line, Point
 
 class Cell:
-    def __init__(self, x1, y1, x2, y2, win):
+    def __init__(
+            self, 
+            x1, 
+            y1, 
+            x2, 
+            y2, 
+            win=None
+        ):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
